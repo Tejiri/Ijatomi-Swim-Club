@@ -21,7 +21,7 @@
 
 
     <div class="row ">
-        <form action="{{ url('/update-profile') }}" method="POST" class="col-md-8">
+        <form action="{{ url('/update-user-account/'.$user->id) }}" method="POST" class="col-md-8">
             @csrf
 
             <div>
@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <label>Date of Birth</label>
                     <input name="date_of_birth" type="date" placeholder="PLease Enter Username" class="form-control"
-                        value="{{ $user->date_of_birth }}" />
+                        value="{{ $user->date_of_birth }}" readonly />
                     {{-- <p class="help-block">Help text here.</p> --}}
                 </div>
 

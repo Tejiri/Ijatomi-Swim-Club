@@ -50,8 +50,32 @@
 
                                 @if (count($squad->trainingSessions->where('day', 'Monday')))
                                     <td>
-                                        <a href="{{ url('/upload-training-result/' . $squad->name. "/Monday") }}"
-                                            style="color: black; text-decoration: none;">
+                                        @if (Auth::user()->role == 'admin')
+                                            <a href="{{ url('/upload-training-result/' . $squad->name . '/Monday') }}"
+                                                style="color: black; text-decoration: none;">
+                                                @if ($squad->trainingSessions->where('day', 'Monday')->first()->intensity == 'High')
+                                                    <span
+                                                        class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13"
+                                                        style="background-color: rgb(220, 64, 64); color: white; font-weight: bolder;">{{ $squad->trainingSessions->where('day', 'Monday')->first()->name }}</span>
+                                                @elseif($squad->trainingSessions->where('day', 'Monday')->first()->intensity == 'Medium')
+                                                    <span
+                                                        class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13"
+                                                        style="background-color: #b8b821; color: white; font-weight: bolder">{{ $squad->trainingSessions->where('day', 'Monday')->first()->name }}</span>
+                                                @else
+                                                    <span
+                                                        class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13"
+                                                        style="background-color: #27ab27; color: white;  font-weight: bolder;">{{ $squad->trainingSessions->where('day', 'Monday')->first()->name }}</span>
+                                                @endif
+                                                <div class="margin-10px-top font-size14" style="font-weight: bolder;">
+                                                    {{ date('g:ia', strtotime($squad->trainingSessions->where('day', 'Monday')->first()->start_time)) }}
+                                                    -
+                                                    {{ date('g:ia', strtotime($squad->trainingSessions->where('day', 'Monday')->first()->end_time)) }}
+                                                </div>
+                                                <div class="font-size13 text-bold">
+                                                    {{ $squad->trainingSessions->where('day', 'Monday')->first()->distance . ' ' . $squad->trainingSessions->where('day', 'Monday')->first()->intensity . ' intensity ' . $squad->trainingSessions->where('day', 'Monday')->first()->stroke_type . ' training' }}
+                                                </div>
+                                            </a>
+                                        @else
                                             @if ($squad->trainingSessions->where('day', 'Monday')->first()->intensity == 'High')
                                                 <span
                                                     class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13"
@@ -73,7 +97,9 @@
                                             <div class="font-size13 text-bold">
                                                 {{ $squad->trainingSessions->where('day', 'Monday')->first()->distance . ' ' . $squad->trainingSessions->where('day', 'Monday')->first()->intensity . ' intensity ' . $squad->trainingSessions->where('day', 'Monday')->first()->stroke_type . ' training' }}
                                             </div>
-                                        </a>
+                                        @endif
+
+
                                     </td>
                                 @else
                                     <td class="bg-light-gray">

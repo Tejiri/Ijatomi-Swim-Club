@@ -41,29 +41,40 @@ Route::middleware(['auth'])->group(function () {
         Route::get('edit-squad/{id}', [EditSquadController::class, 'edit-squad']);
         Route::post('edit-squad/{id}', [EditSquadController::class, "postEditSquad"]);
 
-        Route::get('/upload-training-result', [TrainingResultController::class, "getUploadResultPage"]);
-        Route::post('/upload-training-result', [TrainingResultController::class, "postAddTrainingResult"]);
-
-        Route::get('/performance-history/{userId}', [PerformanceHistoryController::class, "getPerformanceHistory"]);
-
         Route::get('/admin-register-user', [RegistrationController::class, 'getAdminRegister']);
         Route::post('/admin-register-user', [RegistrationController::class, 'postRegisterUser']);
 
         Route::get('create-training-session', [TrainingSessionController::class, 'getTrainingSession']);
         Route::post('create-training-session', [TrainingSessionController::class, 'postCreateTrainingSession']);
 
-        Route::get("manage-children-account", [ManageChildrenAccountController::class, 'getManageChildrenAccountPage']);
-        Route::get("update-child-account/{id}", [ManageChildrenAccountController::class, 'getUpdateChildAccount']);
+        Route::get("manage-children-account", [ManageChildrenAccountController::class, 'getRegisterChildrenPage']);
         Route::post('register-child', [ManageChildrenAccountController::class, "postRegisterChild"]);
+
+        Route::get("update-user-account/{id}", [UpdateProfileController::class, 'getUpdateUserAccount']);
+        Route::post("update-coach-squad/{id}", [UpdateProfileController::class, 'postUpdateCoachSquad']);
+
+        Route::get('manage-coaches', function () {
+            $coaches = User::where('role', 'coach')->get();
+            return view('pages.admin.manage-coaches', compact('coaches'));
+        });
     });
+
+    Route::middleware(['checkIfAdminOrCoach'])->group(function () {
+        Route::get('/upload-training-result', [TrainingResultController::class, "getUploadResultPage"]);
+        Route::post('/upload-training-result', [TrainingResultController::class, "postAddTrainingResult"]);
+    });
+
+    Route::post("update-user-account/{id}", [UpdateProfileController::class, 'postUpdateUserAccount']);
+     
+
 
     Route::get('/', [DashboardController::class, "getDashboard"]);
 
-
     Route::get('/squads', [SquadController::class, "getSquads"]);
 
+    Route::get('/performance-history/{userId}', [PerformanceHistoryController::class, "getPerformanceHistory"]);
+
     Route::get('update-profile', [UpdateProfileController::class, 'getUpdateProfile']);
-    Route::post('update-profile', [UpdateProfileController::class, 'postUpdateUserProfile']);
 
     Route::get('/training-schedule', function () {
         $squads = Squad::all();

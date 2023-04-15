@@ -115,15 +115,15 @@ class RegistrationController extends Controller
             // ]);
         }
         $this->validate($request, [
-            'username' => 'required|unique:users,username',
-            'firstname' => 'required',
-            'lastname' => 'required',
+            'username' => 'required|unique:users,username|max:10',
+            'firstname' => 'required|regex:/^[a-zA-Z]+$/u|max:30',
+            'lastname' => 'required|regex:/^[a-zA-Z]+$/u|max:30',
             'date_of_birth' => 'required',
             'address' => 'required',
             'postcode' => 'required',
-            'phone_number' => 'required|numeric',
+            'phone_number' => 'required|numeric|digits_between:10,12',
             'email' => 'required|email:rfc,dns|unique:users,email',
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed|min:4',
         ]);
         return $this->registerUser($request);
     }
@@ -165,7 +165,6 @@ class RegistrationController extends Controller
 
     function createUser(Request $request, $genderId, $squadId, $squadName)
     {
-
         User::create(
             [
                 'username' => $request->username,
@@ -182,8 +181,7 @@ class RegistrationController extends Controller
                 'squad_id' => $request->role == "swimmer" ? $squadId : null
             ]
         );
-
-        return back()->withInput()->with("success", $request->role == "swimmer" ? "User registered successfully to " . $squadName : "User registered successfully");
+        return back()->withInput()->with("success", $request->role == "swimmer" ? "Registered successfully to " . $squadName : "User registered successfully");
     }
 
 

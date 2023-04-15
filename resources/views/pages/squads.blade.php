@@ -22,7 +22,11 @@
 
                     <div class="tab-content">
                         <div class="tab-pane fade" id="development-squad">
-                            <h4>Development Squad <a href="{{ url('edit-squad/' . $developmentSquad->id) }}">Edit</a></h4>
+                            <h4>Development Squad Members
+                                @if (Auth::user()->role == 'admin')
+                                    <a href="{{ url('edit-squad/' . $developmentSquad->id) }}">Edit</a>
+                                @endif
+                            </h4>
 
                             @if (count($developmentSquad->users))
                                 <div class="table-responsive" style="margin-top: 20px">
@@ -34,7 +38,9 @@
                                                 <th>Lastname</th>
                                                 <th>Gender</th>
                                                 <th>View Performance</th>
-                                                <th>Update</th>
+                                                @if (Auth::user()->role == 'admin')
+                                                    <th>Update</th>
+                                                @endif
                                                 {{-- <th>CSS grade</th> --}}
                                             </tr>
                                         </thead>
@@ -53,9 +59,12 @@
                                                                     style="width: 100%; background-color: #52a3d9; color: white;">
                                                             </a>
                                                         </td>
-                                                        <td><input type="submit" value="UPDATE" class="form-control"
-                                                                style="width: 100%; background-color: #bf3c3c; color: white;">
-                                                        </td>
+
+                                                        @if (Auth::user()->role == 'admin')
+                                                            <td><input type="submit" value="UPDATE" class="form-control"
+                                                                    style="width: 100%; background-color: #bf3c3c; color: white;">
+                                                            </td>
+                                                        @endif
                                                     </tr>
                                                 @endif
                                             @endforeach
@@ -69,8 +78,11 @@
                             @endif
                         </div>
                         <div class="tab-pane fade" id="intermediate-squad">
-                            <h4>Intermediate Squad Members <a
-                                    href="{{ url('edit-squad/' . $intermediateSquad->id) }}">Edit</a></h4>
+                            <h4>Intermediate Squad Members
+                                @if (Auth::user()->role == 'admin')
+                                    <a href="{{ url('edit-squad/' . $intermediateSquad->id) }}">Edit</a>
+                                @endif
+                            </h4>
 
                             @if (count($intermediateSquad->users))
                                 <div class="table-responsive" style="margin-top: 20px">
@@ -82,7 +94,10 @@
                                                 <th>Lastname</th>
                                                 <th>Gender</th>
                                                 <th>View Performance</th>
-                                                <th>Update</th>
+                                                @if (Auth::user()->role == 'admin')
+                                                    <th>Update</th>
+                                                @endif
+
                                                 {{-- <th>CSS grade</th> --}}
                                             </tr>
                                         </thead>
@@ -104,11 +119,11 @@
                                                             </a>
                                                             {{-- </form> --}}
                                                         </td>
-
-
-                                                        <td><input type="submit" value="UPDATE" class="form-control"
-                                                                style="width: 100%; background-color: #bf3c3c; color: white;">
-                                                        </td>
+                                                        @if (Auth::user()->role == 'admin')
+                                                            <td><input type="submit" value="UPDATE" class="form-control"
+                                                                    style="width: 100%; background-color: #bf3c3c; color: white;">
+                                                            </td>
+                                                        @endif
                                                     </tr>
                                                 @endif
                                             @endforeach
@@ -125,7 +140,10 @@
 
                         </div>
                         <div class="tab-pane fade" id="performance-squad">
-                            <h4>Performance Squad Members <a href="{{ url('edit-squad/' . $performanceSquad->id) }}">Edit</a>
+                            <h4>Performance Squad Members
+                                @if (Auth::user()->role == 'admin')
+                                    <a href="{{ url('edit-squad/' . $performanceSquad->id) }}">Edit</a>
+                                @endif
                             </h4>
 
                             @if (count($performanceSquad->users))
@@ -138,7 +156,9 @@
                                                 <th>Lastname</th>
                                                 <th>Gender</th>
                                                 <th>View Performance</th>
-                                                <th>Update</th>
+                                                @if (Auth::user()->role == 'admin')
+                                                    <th>Update</th>
+                                                @endif
                                                 {{-- <th>CSS grade</th> --}}
                                             </tr>
                                         </thead>
@@ -156,13 +176,16 @@
                                                                     style="width: 100%; background-color: #52a3d9; color: white;">
                                                             </a>
                                                         </td>
-                                                        <td>
-                                                            <a href="{{ url('update-child-account/' . $user->id) }}">
-                                                                <input type="submit" value="UPDATE" class="form-control"
-                                                                    style="width: 100%; background-color: #bf3c3c; color: white;">
+                                                        @if (Auth::user()->role == 'admin')
+                                                            <td>
+                                                                <a href="{{ url('update-child-account/' . $user->id) }}">
+                                                                    <input type="submit" value="UPDATE"
+                                                                        class="form-control"
+                                                                        style="width: 100%; background-color: #bf3c3c; color: white;">
 
-                                                            </a>
-                                                        </td>
+                                                                </a>
+                                                            </td>
+                                                        @endif
                                                     </tr>
                                                 @endif
                                             @endforeach

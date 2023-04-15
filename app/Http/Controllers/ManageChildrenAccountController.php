@@ -10,31 +10,18 @@ use Illuminate\Http\Request;
 
 class ManageChildrenAccountController extends Controller
 {
-    //
+     //
 
-    function getManageChildrenAccountPage($id) {
-        // $genders = Gender::all();
-        // $registeredChildren = User::where('parent',auth()->user()->id)->get();
-
-        $user = User::where('id', $id)->where('parent', auth()->user()->id)->first();
-        if ($user != null) {
-            return view('pages.parent.update-child-account', compact("user"));
-        }
-        if (auth()->user()->role == 'admin') {
-            $user = User::where('id', $id)->first();
-            return view('pages.parent.update-child-account', compact("user"));
-        }
-    }
+  
 
     function getRegisterChildrenPage() {
         $genders = Gender::all();
         $registeredChildren = User::where('parent', auth()->user()->id)->get();
         return view('pages.parent.manage-children-account', compact("genders", "registeredChildren"));
     }
-
+ 
     function postRegisterChild(Request $request)
     {
-
         $request->merge([
             "role" => "swimmer",
             "parent" => auth()->user()->id

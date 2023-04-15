@@ -168,7 +168,7 @@
 
                     <li>
                         {{-- class="active-menu"  --}}
-                        <a href="/"><i class="fa-solid fa-gauge fa-2x"></i> Dashboard</a>
+                        <a href="{{ url('/') }}"><i class="fa-solid fa-gauge fa-2x"></i> Dashboard</a>
                     </li>
 
                     @if (Auth::user()->role == 'admin')
@@ -215,7 +215,7 @@
                             Profile</a>
                     </li>
 
-                    @if (Auth::user()->role == 'admin')
+                    @if (Auth::user()->role == 'admin' || Auth::user()->role == 'coach')
                         <li>
                             {{-- class="active-menu"  --}}
                             <a href="{{ url('upload-training-result') }}"><i class="fa-solid fa-upload fa-2x"></i>
@@ -224,13 +224,19 @@
                         </li>
                     @endif
 
-                    @if (Auth::user()->role == 'admin')
-                        <li>
-                            {{-- class="active-menu"  --}}
-                            <a href="{{ url('manage-children-account') }}"> <i
-                                    class="fa-solid fa-hands-holding-child fa-2x"></i> Parental Control</a>
-                        </li>
-                    @endif
+                    {{-- @if (Auth::user()->role == 'admin') --}}
+                    <li>
+                        {{-- class="active-menu"  --}}
+                        <a href="{{ url('manage-children-account') }}"> <i
+                                class="fa-solid fa-hands-holding-child fa-2x"></i> Parental Control</a>
+                    </li>
+                    {{-- @endif --}}
+
+                    <li>
+                        {{-- class="active-menu"  --}}
+                        <a href="{{ url('manage-coaches') }}"> <i class="fa-solid fa-person-chalkboard fa-2x"></i>
+                            Manage Coaches</a>
+                    </li>
                     {{-- <li>
                         <a href="ui.html"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>
                     </li>

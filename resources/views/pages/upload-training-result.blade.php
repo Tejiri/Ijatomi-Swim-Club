@@ -98,6 +98,7 @@
 
                         </select>
                     @else
+                   
                         <div style="color: red; font-weight: bolder;font-size: 16px">No registered swimmers in this squad
                         </div>
                     @endif

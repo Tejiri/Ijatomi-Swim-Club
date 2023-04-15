@@ -19,9 +19,8 @@
 
 
 
-
-    <div class="row">
-        <form action="/admin-register-user" method="POST">
+    <form action="/admin-register-user" method="POST">
+        <div class="row">
             @csrf
 
             <div class="col-md-6">
@@ -58,11 +57,8 @@
                 </div>
 
 
-                <div class="form-group">
-                    <label>Password</label>
-                    <input name="password" type="password" placeholder="Please Enter Password" class="form-control" />
-                    {{-- <p class="help-block">Help text here.</p> --}}
-                </div>
+              
+
 
                 <div class="form-group">
                     <label>Role</label>
@@ -78,6 +74,13 @@
                     {{-- <input type="text" placeholder="PLease Enter Username"  class="form-control" />
                 <p class="help-block">Help text here.</p> --}}
                 </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input name="password" type="password" placeholder="Please Enter Password" class="form-control" />
+                    {{-- <p class="help-block">Help text here.</p> --}}
+                </div>
+
 
             </div>
 
@@ -123,21 +126,33 @@
                     </select>
 
                 </div>
-
-
                 <div class="form-group">
-                    <label></label>
-                    <input type="submit" value="Submit" class="form-control"
-                        style="background-color: #71b7e6; font-weight: bold" />
+                    <label>Confirm Password</label>
+                    <input name="password_confirmation" type="password" placeholder="Please Enter Password"
+                        class="form-control" />
+                    {{-- <p class="help-block">Help text here.</p> --}}
                 </div>
 
-        </form>
 
+
+
+
+            </div>
+
+
+    </form>
+
+    <div class="row" style="margin:0px 20px;">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label></label>
+                <input type="submit" value="Submit" class="form-control"
+                    style="background-color: #71b7e6; font-weight: bold" />
+            </div>
+        </div>
     </div>
 
 
 
 
-
-  
 @endsection

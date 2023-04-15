@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TrainingResultController extends Controller
 {
@@ -12,16 +13,18 @@ class TrainingResultController extends Controller
 
     function getUploadResultPage()
     {
-        $swimmers = User::where('role', 'swimmer')->get();
-        // if (condition) {
-        //     # code...
-        // }
-        // auth()->logout();
-        // return $day;
-        // $squad = Squad::where('name', $squadName)->first();
-        // $trainingSession = TrainingSession::where('squad_id', $squad->id)->where('day', $day)->first();
-        // return $trainingSessions;
-        return view('pages.upload-training-result', compact('swimmers'));
+        $swimmers = null;
+        if (Auth::user()->role == 'admin') {
+            $this->$swimmers = User::where('role', 'swimmer')->get();
+        } else if (Auth::user()->role == 'coach' && Auth::user()->squad_id != null) {
+            $this->$swimmers = User::where('role', 'swimmer')->where('squad_id', Auth::user()->squad_id)->get();
+        } else {
+            abort(403,"UNAUTHORIZED, YOU DO NOT HAVE A SQUAD");
+        }
+
+
+
+        return view('pages.upload-training-result')->with("swimmers", $this->$swimmers);
     }
 
     function postAddTrainingResult(Request $request)
@@ -37,7 +40,7 @@ class TrainingResultController extends Controller
             "stroke_type" => 'required',
         ]);
 
-     
+
 
         if ($request->h != null) {
             # code...

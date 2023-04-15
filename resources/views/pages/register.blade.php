@@ -11,10 +11,12 @@
 
 <body>
     <div class="container">
-        <div class="title">Register an Account</div>
+        <div class="title">Register an Account or <a href="{{ url('/login') }}"
+                style="text-decoration: none; color: rgb(42, 113, 199)">Login</a></div>
         <div class="row" style="margin-top: 10px">
-            <p class="col-md-12" style="color: green;  padding-top: 0px; font-weight: bold;"> {{ session('success') }}</p>
-    
+            <p class="col-md-12" style="color: green;  padding-top: 0px; font-weight: bold;"> {{ session('success') }}
+            </p>
+
             @if ($errors->any())
                 @foreach ($errors->all() as $error)
                     <p class="col-md-12" style="color: red;  padding-top: 0px; margin-top: 0px"> {{ $error }}</p>
@@ -28,45 +30,51 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Username</span>
-                        <input value="{{old("username")}}" type="text" name="username" placeholder="Enter your username" required>
+                        <input value="{{ old('username') }}" type="text" name="username"
+                            placeholder="Enter your username" required>
                     </div>
                     <div class="input-box">
                         <span class="details">Firstname</span>
-                        <input value="{{old("firstname")}}" type="text" name="firstname" placeholder="Enter your name" required>
+                        <input value="{{ old('firstname') }}" type="text" name="firstname"
+                            placeholder="Enter your name" required>
                     </div>
 
                     <div class="input-box">
                         <span class="details">Lastname</span>
-                        <input value="{{old("lastname")}}" type="text" name="lastname" placeholder="Enter your lastname" required>
+                        <input value="{{ old('lastname') }}" type="text" name="lastname"
+                            placeholder="Enter your lastname" required>
                     </div>
 
                     <div class="input-box">
                         <span class="details">Date of Birth</span>
-                        <input value="{{old("date_of_birth")}}" type="date" name="date_of_birth" placeholder="Enter your date of birth" required>
+                        <input value="{{ old('date_of_birth') }}" type="date" name="date_of_birth"
+                            placeholder="Enter your date of birth" required>
                     </div>
 
                     <div class="input-box">
                         <span class="details">Address</span>
-                        <input value="{{old("address")}}" type="text" name="address" placeholder="Enter your address" required>
+                        <input value="{{ old('address') }}" type="text" name="address"
+                            placeholder="Enter your address" required>
                     </div>
 
                     <div class="input-box">
                         <span class="details">Postcode</span>
-                        <input value="{{old("postcode")}}" type="text" name="postcode" placeholder="Enter your postcode" required>
+                        <input value="{{ old('postcode') }}" type="text" name="postcode"
+                            placeholder="Enter your postcode" required>
                     </div>
 
 
                     <div class="input-box">
                         <span class="details">Phone Number</span>
-                        <input value="{{old("phone_number")}}" type="text" name="phone_number" placeholder="Enter your phone number" required>
+                        <input value="{{ old('phone_number') }}" type="text" name="phone_number"
+                            placeholder="Enter your phone number" required>
                     </div>
 
                     <div class="input-box">
                         <span class="details">Email</span>
-                        <input value="{{old("email")}}" type="email" name="email" placeholder="Enter your email" required  >
+                        <input value="{{ old('email') }}" type="email" name="email" placeholder="Enter your email"
+                            required>
                     </div>
-
-                   
 
                     <div class="input-box">
                         <span class="details">Gender</span>
@@ -87,12 +95,14 @@
 
                     <div class="input-box">
                         <span class="details">Password</span>
-                        <input value="{{old("password")}}" type="password" name="password" placeholder="Enter your password" required>
+                        <input value="{{ old('password') }}" type="password" name="password"
+                            placeholder="Enter your password" required>
                     </div>
 
                     <div class="input-box">
                         <span class="details">Confirm Password</span>
-                        <input value="{{old("password_confirmation")}}" type="password" name="password_confirmation" placeholder="Retype your password" required>
+                        <input value="{{ old('password_confirmation') }}" type="password" name="password_confirmation"
+                            placeholder="Retype your password" required>
                     </div>
 
                     {{-- <div class="input-box" style="width: 100vw"> --}}
@@ -143,7 +153,11 @@
                 <div class="button">
                     <input type="submit" value="Register">
                 </div>
+
+
             </form>
+
+
         </div>
     </div>
 
