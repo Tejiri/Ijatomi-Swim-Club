@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->generateGenders();
         $this->createSquads();
         $this->createAdmin();
+        $this->createCoaches();
 
         // \App\Models\User::factory(10)->create();
 
@@ -93,11 +94,44 @@ class DatabaseSeeder extends Seeder
 
             ]
         );
-        // Squad::create([
-        //     'minimum_age' => 6,
-        //     'maximum_age' => 25,
-        //     'name' => 'Para Swimming Squad',
-        //     'description' => 'A Para swimming squad swim club membership is a type of membership for swimmers with a disability who are looking to develop their skills and compete in the sport of swimming. Para swimming squad swim clubs are designed to cater to swimmers with a wide range of disabilities, including physical, sensory, and intellectual impairments.'
-        // ]);
+    }
+
+    function  createCoaches()
+    {
+        User::create(
+            [
+                "username" => "Tejiri2",
+                "first_name" => "Tejiri2",
+                "last_name" => "Ijatomi2",
+                "date_of_birth" => fake()->date(),
+                'address' => fake()->address(),
+                'postcode' => fake()->postcode(),
+                'phone_number' => fake()->phoneNumber(),
+                'email' => "steveijatomi2@gmail.com",
+                'password' => Hash::make("aaaaa"),
+                'role' => "coach",
+                'gender_id' => 1,
+                'squad_id' => 1,
+
+            ]
+        );
+
+        User::create(
+            [
+                "username" => "Tejiri3",
+                "first_name" => "Tejiri3",
+                "last_name" => "Ijatomi3",
+                "date_of_birth" => fake()->date(),
+                'address' => fake()->address(),
+                'postcode' => fake()->postcode(),
+                'phone_number' => fake()->phoneNumber(),
+                'email' => "steveijatomi3@gmail.com",
+                'password' => Hash::make("aaaaa"),
+                'role' => "coach",
+                'gender_id' => 1,
+                'squad_id' => 2,
+
+            ]
+        );
     }
 }

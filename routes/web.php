@@ -37,10 +37,6 @@ Route::get('/populate', [PopulateDatabase::class, "populate"]);
 Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['checkIfAdmin'])->group(function () {
-
-        Route::get('edit-squad/{id}', [EditSquadController::class, 'edit-squad']);
-        Route::post('edit-squad/{id}', [EditSquadController::class, "postEditSquad"]);
-
         Route::get('/admin-register-user', [RegistrationController::class, 'getAdminRegister']);
         Route::post('/admin-register-user', [RegistrationController::class, 'postRegisterUser']);
 
@@ -57,15 +53,44 @@ Route::middleware(['auth'])->group(function () {
             $coaches = User::where('role', 'coach')->get();
             return view('pages.admin.manage-coaches', compact('coaches'));
         });
+
+        Route::get('validate-training-results', function () {
+            $trainingResults = TrainingResult::where('validated', 0)->get();
+            return view('pages.admin.validate-training-results', compact('trainingResults'));
+        });
+        Route::get('validate-training-result/{id}', function ($id) {
+            $trainingResult = TrainingResult::where('id', $id)->where("validated", 0)->first();
+            if ($trainingResult == null) {
+                abort(403, "Training result not found");
+            }
+            return view('pages.admin.validate-training-result', compact('trainingResult'));
+        });
+
+        Route::post('validate-training-result/{id}', function ($id) {
+            TrainingResult::where('id', $id)->first()->update([
+                "validated" => 1
+            ]);
+
+            return redirect('validate-training-results');
+        });
+
+        Route::post('decline-training-result/{id}', function ($id) {
+            TrainingResult::where('id', $id)->first()->delete();
+
+            return redirect('validate-training-results');
+        });
     });
 
     Route::middleware(['checkIfAdminOrCoach'])->group(function () {
+        Route::get('edit-squad/{id}', [EditSquadController::class, 'getEditSquad']);
+        Route::post('edit-squad/{id}', [EditSquadController::class, "postEditSquad"]);
+
         Route::get('/upload-training-result', [TrainingResultController::class, "getUploadResultPage"]);
         Route::post('/upload-training-result', [TrainingResultController::class, "postAddTrainingResult"]);
     });
 
     Route::post("update-user-account/{id}", [UpdateProfileController::class, 'postUpdateUserAccount']);
-     
+
 
 
     Route::get('/', [DashboardController::class, "getDashboard"]);

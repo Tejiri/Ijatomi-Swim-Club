@@ -19,6 +19,7 @@ class UpdateProfileController extends Controller
         $interval = $dateOfBirth->diff($dateNow);
         $intervalYear = $interval->y;
 
+        // return $intervalYear;
         if ($intervalYear < 18) {
             abort(403, 'UNAUTHORIZED, ONLY PARENTS CAN UPDATE');
         }
@@ -27,20 +28,13 @@ class UpdateProfileController extends Controller
 
     function getUpdateUserAccount($id)
     {
-        // $genders = Gender::all();
-        // $registeredChildren = User::where('parent',auth()->user()->id)->get();
-
         $user = User::where('id', $id)->where('parent', auth()->user()->id)->first();
         if ($user != null) {
             return view('pages.parent.update-user-account', compact("user"));
         }
         if (auth()->user()->role == 'admin') {
-            // $squad = null;
             $user = User::where('id', $id)->first();
-            // if ($user->squad_id != null) {
             $squad = Squad::where('id', $user->squad_id)->first();
-            // }
-
             return view('pages.parent.update-user-account', compact("user"), compact('squad'));
         }
     }

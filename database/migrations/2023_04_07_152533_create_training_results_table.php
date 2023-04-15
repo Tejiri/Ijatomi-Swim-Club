@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('remark');
             $table->unsignedInteger('time_in_seconds');
+            $table->unsignedInteger('validated');
             $table->date("training_date");
             $table->string("intensity");
             $table->string("distance");

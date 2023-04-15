@@ -23,7 +23,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade" id="development-squad">
                             <h4>Development Squad Members
-                                @if (Auth::user()->role == 'admin')
+                                @if (Auth::user()->role == 'admin' ||  Auth::user()->role == 'coach' &&  Auth::user()->squad->id == $developmentSquad->id)
                                     <a href="{{ url('edit-squad/' . $developmentSquad->id) }}">Edit</a>
                                 @endif
                             </h4>
@@ -79,7 +79,7 @@
                         </div>
                         <div class="tab-pane fade" id="intermediate-squad">
                             <h4>Intermediate Squad Members
-                                @if (Auth::user()->role == 'admin')
+                                @if (Auth::user()->role == 'admin' ||  Auth::user()->role == 'coach' &&  Auth::user()->squad->id == $intermediateSquad->id)
                                     <a href="{{ url('edit-squad/' . $intermediateSquad->id) }}">Edit</a>
                                 @endif
                             </h4>
@@ -141,7 +141,8 @@
                         </div>
                         <div class="tab-pane fade" id="performance-squad">
                             <h4>Performance Squad Members
-                                @if (Auth::user()->role == 'admin')
+                                @if (Auth::user()->role == 'admin' ||
+                                        (Auth::user()->role == 'coach' && Auth::user()->squad->id == $performanceSquad->id))
                                     <a href="{{ url('edit-squad/' . $performanceSquad->id) }}">Edit</a>
                                 @endif
                             </h4>

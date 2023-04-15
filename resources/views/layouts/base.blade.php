@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Bootstrap Admin Template : Binary Admin</title>
+    <title>Upload Training Data</title>
     <!-- BOOTSTRAP STYLES-->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" />
     <!-- FONTAWESOME STYLES-->
@@ -236,6 +236,13 @@
                         {{-- class="active-menu"  --}}
                         <a href="{{ url('manage-coaches') }}"> <i class="fa-solid fa-person-chalkboard fa-2x"></i>
                             Manage Coaches</a>
+                    </li>
+
+                    <li>
+                        {{-- class="active-menu"  --}}
+                        <a href="{{ url('validate-training-results') }}">
+                            <i class="fa-solid fa-check-double fa-2x"></i>
+                            Validate Training Results</a>
                     </li>
                     {{-- <li>
                         <a href="ui.html"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>

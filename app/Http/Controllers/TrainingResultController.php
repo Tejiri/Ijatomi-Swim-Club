@@ -15,11 +15,11 @@ class TrainingResultController extends Controller
     {
         $swimmers = null;
         if (Auth::user()->role == 'admin') {
-            $this->$swimmers = User::where('role', 'swimmer')->get();
+            $this->$swimmers = User::orderBy('first_name','asc')->where('role', 'swimmer')->get();
         } else if (Auth::user()->role == 'coach' && Auth::user()->squad_id != null) {
-            $this->$swimmers = User::where('role', 'swimmer')->where('squad_id', Auth::user()->squad_id)->get();
+            $this->$swimmers = User::orderBy('first_name','asc')->where('role', 'swimmer')->where('squad_id', Auth::user()->squad_id)->get();
         } else {
-            abort(403,"UNAUTHORIZED, YOU DO NOT HAVE A SQUAD");
+            abort(403, "UNAUTHORIZED, YOU DO NOT HAVE A SQUAD");
         }
 
 
@@ -40,10 +40,7 @@ class TrainingResultController extends Controller
             "stroke_type" => 'required',
         ]);
 
-
-
         if ($request->h != null) {
-            # code...
             $timeInSec = $request->h * 60;
         }
         if ($request->m != null) {
@@ -60,16 +57,9 @@ class TrainingResultController extends Controller
             'distance' => $request->distance,
             'intensity' => $request->intensity,
             'stroke_type' => $request->stroke_type,
+            'validated' => Auth::user()->role  ==  "admin" ? 1 : 0
         ]);
 
         return back()->withInput()->with('success', "Training result successfully uploaded for " . $swimmer->first_name . " " . $swimmer->last_name);
-        // return $swimmer->trainingResults;
-        // auth()->logout();
-        // return $day;
-        // $squad = Squad::where('name',$squadName)->first();
-        // $trainingSession = TrainingSession::where('squad_id',$squad->id)->where('day',$day)->first();
-        // return $trainingSessions;
-        // return $request;
-        // return view('pages.upload-training-result', compact('squad', 'trainingSession'));
     }
 }
