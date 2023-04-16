@@ -51,7 +51,7 @@
                                 @if (count($squad->trainingSessions->where('day', 'Monday')))
                                     <td>
                                         @if (Auth::user()->role == 'admin')
-                                            <a href="{{ url('/upload-training-result/' . $squad->name . '/Monday') }}"
+                                            <a href="{{ url('/update-training-session/' . $squad->trainingSessions->where('day','Monday')->first()->id) }}"
                                                 style="color: black; text-decoration: none;">
                                                 @if ($squad->trainingSessions->where('day', 'Monday')->first()->intensity == 'High')
                                                     <span

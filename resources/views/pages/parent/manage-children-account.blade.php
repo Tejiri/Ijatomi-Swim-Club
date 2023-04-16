@@ -192,7 +192,7 @@
 
                                 </div>
                             @else
-                                <h4>No training performance data to display</h4>
+                                <h4>No child currently registered in Ijatomi's swim club</h4>
                             @endif
 
                         </div>

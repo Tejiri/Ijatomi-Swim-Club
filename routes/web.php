@@ -43,9 +43,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('create-training-session', [TrainingSessionController::class, 'getTrainingSession']);
         Route::post('create-training-session', [TrainingSessionController::class, 'postCreateTrainingSession']);
 
-        Route::get("manage-children-account", [ManageChildrenAccountController::class, 'getRegisterChildrenPage']);
-        Route::post('register-child', [ManageChildrenAccountController::class, "postRegisterChild"]);
-
+       
         Route::get("update-user-account/{id}", [UpdateProfileController::class, 'getUpdateUserAccount']);
         Route::post("update-coach-squad/{id}", [UpdateProfileController::class, 'postUpdateCoachSquad']);
 
@@ -89,6 +87,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/upload-training-result', [TrainingResultController::class, "postAddTrainingResult"]);
     });
 
+
+    Route::get("manage-children-account", [ManageChildrenAccountController::class, 'getRegisterChildrenPage']);
+    Route::post('register-child', [ManageChildrenAccountController::class, "postRegisterChild"]);
+
     Route::post("update-user-account/{id}", [UpdateProfileController::class, 'postUpdateUserAccount']);
 
 
@@ -104,6 +106,26 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/training-schedule', function () {
         $squads = Squad::all();
         return view('pages.training-schedule', compact('squads'));
+    });
+
+    Route::get('/update-training-session/{id}', function ($id) {
+        // $squads = Squad::all();
+        $trainingSession = TrainingSession::where('id', $id)->first();
+        return view('pages.admin-coach.update-training-schedule', compact('trainingSession'));
+    });
+
+    Route::post('/update-training-session/{id}', [TrainingSessionController::class, 'putUpdateTrainingSession']);
+
+    Route::get('training-results', function () {
+        // $trainingResults = TrainingResult::all();
+        $trainingResults_50m = TrainingResult::where('distance', '50m')->where('validated', 1)->get();
+        $trainingResults_100m = TrainingResult::where('distance', '100m')->where('validated', 1)->get();
+        $trainingResults_200m = TrainingResult::where('distance', '200m')->where('validated', 1)->get();
+        $trainingResults_400m = TrainingResult::where('distance', '400m')->where('validated', 1)->get();
+        $trainingResults_800m = TrainingResult::where('distance', '800m')->where('validated', 1)->get();
+        $trainingResults_1500m = TrainingResult::where('distance', '1500m')->where('validated', 1)->get();
+
+        return view('pages.all-training-results', compact('trainingResults_50m', 'trainingResults_100m', 'trainingResults_200m', 'trainingResults_400m', 'trainingResults_800m', 'trainingResults_1500m'));
     });
 });
 

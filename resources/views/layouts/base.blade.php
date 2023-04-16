@@ -244,6 +244,12 @@
                             <i class="fa-solid fa-check-double fa-2x"></i>
                             Validate Training Results</a>
                     </li>
+                    <li>
+                        {{-- class="active-menu"  --}}
+                        <a href="{{ url('training-results') }}">
+                            <i class="fa-solid fa-check-double fa-2x"></i>
+                           ALl results</a>
+                    </li>
                     {{-- <li>
                         <a href="ui.html"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>
                     </li>

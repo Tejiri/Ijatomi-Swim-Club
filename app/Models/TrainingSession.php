@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TrainingSession extends Model
 {
@@ -21,4 +22,9 @@ class TrainingSession extends Model
         'end_time',
         'squad_id',
     ];
+
+    public function squad(): BelongsTo
+    {
+        return $this->belongsTo(Squad::class);
+    }
 }

@@ -10,9 +10,10 @@ class TrainingSessionController extends Controller
 {
     //
 
-    function getTrainingSession() {
+    function getTrainingSession()
+    {
         $squads = Squad::all();
-        return view('pages.create-training-session', compact('squads'));
+        return view('pages.admin.create-training-session', compact('squads'));
     }
 
     function postCreateTrainingSession(Request $request)
@@ -52,5 +53,31 @@ class TrainingSessionController extends Controller
                 ]
             );
         }
+    }
+
+    function putUpdateTrainingSession(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required',
+            'intensity' => 'required',
+            'distance' => 'required',
+            'stroke_type' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+        ]);
+
+        TrainingSession::where('id', $id)->first()->update([
+            'name' => $request->name,
+            'description' =>  $request->description,
+            'intensity' =>  $request->intensity,
+            'distance' =>  $request->distance,
+            'stroke_type' =>  $request->stroke_type,
+            'start_time' =>  $request->start_time,
+            'end_time' =>  $request->end_time,
+        ]);
+        return back()->with('success', 'Training Session updated successfully');
+        // return $trainingSession->squad;
+        // return $request;
     }
 }

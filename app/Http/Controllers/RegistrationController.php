@@ -93,15 +93,8 @@ class RegistrationController extends Controller
 
     function getAdminRegister()
     {
-
         $genders = Gender::all();
-        // if (auth()->user() != null) {
-        //     return redirect('/');
-        // }
-        // $paraSquad = Squad::where("name", "Para Swimming Squad")->first();
-        // $paraSwimmers = $paraSquad->users;
-        // return $paraSwimmers;
-        return view('pages.admin-register-user', compact('genders'));
+        return view('pages.admin.register-user', compact('genders'));
     }
 
     function postRegisterUser(Request $request)
@@ -110,9 +103,6 @@ class RegistrationController extends Controller
             $request->merge([
                 "role" => "swimmer",
             ]);
-            // return back()->withInput()->withErrors([
-            //     "message" => "Role is null"
-            // ]);
         }
         $this->validate($request, [
             'username' => 'required|unique:users,username|max:10',
@@ -146,13 +136,10 @@ class RegistrationController extends Controller
             } else {
                 $this->$squadToAdd = Squad::find(3);
             }
-
             return $this->createUser($request, $gender->id, $this->$squadToAdd->id, $this->$squadToAdd->name);
         } else if ((20 <= $intervalYear) && ($intervalYear <= 50) && $request->role == "coach") {
-
             return $this->createUser($request, $gender->id, null, null);
         } else if ((18 <= $intervalYear) && ($intervalYear <= 100) && $request->role == "parent") {
-
             return $this->createUser($request, $gender->id, null, null);
         } else {
             $errorMessage = $request->role == "coach" ? "Age requirement not met. Coach must be between 20 and 50 years old" : "Age requirement not met. Parent must be between 18 and 100 years old";

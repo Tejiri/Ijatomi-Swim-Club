@@ -24,7 +24,7 @@ class TrainingResultController extends Controller
 
 
 
-        return view('pages.upload-training-result')->with("swimmers", $this->$swimmers);
+        return view('pages.admin-coach.upload-training-result')->with("swimmers", $this->$swimmers);
     }
 
     function postAddTrainingResult(Request $request)
