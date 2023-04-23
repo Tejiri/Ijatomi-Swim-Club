@@ -23,7 +23,8 @@
                     <div class="tab-content">
                         <div class="tab-pane fade" id="development-squad">
                             <h4>Development Squad Members
-                                @if (Auth::user()->role == 'admin' ||  Auth::user()->role == 'coach' &&  Auth::user()->squad->id == $developmentSquad->id)
+                                @if (Auth::user()->role == 'admin' ||
+                                        (Auth::user()->role == 'coach' && Auth::user()->squad->id == $developmentSquad->id))
                                     <a href="{{ url('edit-squad/' . $developmentSquad->id) }}">Edit</a>
                                 @endif
                             </h4>
@@ -61,8 +62,13 @@
                                                         </td>
 
                                                         @if (Auth::user()->role == 'admin')
-                                                            <td><input type="submit" value="UPDATE" class="form-control"
-                                                                    style="width: 100%; background-color: #bf3c3c; color: white;">
+                                                            <td>
+                                                                <a href="{{ url('update-user-account/' . $user->id) }}">
+                                                                    <input type="submit" value="UPDATE"
+                                                                        class="form-control"
+                                                                        style="width: 100%; background-color: #bf3c3c; color: white;">
+
+                                                                </a>
                                                             </td>
                                                         @endif
                                                     </tr>
@@ -79,7 +85,8 @@
                         </div>
                         <div class="tab-pane fade" id="intermediate-squad">
                             <h4>Intermediate Squad Members
-                                @if (Auth::user()->role == 'admin' ||  Auth::user()->role == 'coach' &&  Auth::user()->squad->id == $intermediateSquad->id)
+                                @if (Auth::user()->role == 'admin' ||
+                                        (Auth::user()->role == 'coach' && Auth::user()->squad->id == $intermediateSquad->id))
                                     <a href="{{ url('edit-squad/' . $intermediateSquad->id) }}">Edit</a>
                                 @endif
                             </h4>
@@ -120,8 +127,13 @@
                                                             {{-- </form> --}}
                                                         </td>
                                                         @if (Auth::user()->role == 'admin')
-                                                            <td><input type="submit" value="UPDATE" class="form-control"
-                                                                    style="width: 100%; background-color: #bf3c3c; color: white;">
+                                                            <td>
+                                                                <a href="{{ url('update-user-account/' . $user->id) }}">
+                                                                    <input type="submit" value="UPDATE"
+                                                                        class="form-control"
+                                                                        style="width: 100%; background-color: #bf3c3c; color: white;">
+
+                                                                </a>
                                                             </td>
                                                         @endif
                                                     </tr>
@@ -179,7 +191,7 @@
                                                         </td>
                                                         @if (Auth::user()->role == 'admin')
                                                             <td>
-                                                                <a href="{{ url('update-child-account/' . $user->id) }}">
+                                                                <a href="{{ url('update-user-account/' . $user->id) }}">
                                                                     <input type="submit" value="UPDATE"
                                                                         class="form-control"
                                                                         style="width: 100%; background-color: #bf3c3c; color: white;">

@@ -34,8 +34,8 @@ class UpdateProfileController extends Controller
         }
         if (auth()->user()->role == 'admin') {
             $user = User::where('id', $id)->first();
-            $squad = Squad::where('id', $user->squad_id)->first();
-            return view('pages.parent.update-user-account', compact("user"), compact('squad'));
+            // $squad = Squad::where('id', $user->squad_id)->first();
+            return view('pages.parent.update-user-account', compact("user"));
         }
     }
 

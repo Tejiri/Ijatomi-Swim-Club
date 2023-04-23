@@ -10,6 +10,12 @@ class TrainingSessionController extends Controller
 {
     //
 
+    function getTrainingSchedule()
+    {
+        $squads = Squad::all();
+        return view('pages.training-schedule', compact('squads'));
+    }
+
     function getTrainingSession()
     {
         $squads = Squad::all();
@@ -54,6 +60,21 @@ class TrainingSessionController extends Controller
             );
         }
     }
+
+
+    function getUpdateTrainingSession($id)
+    {
+        // $squads = Squad::all();
+        $trainingSession = TrainingSession::where('id', $id)->first();
+        return view('pages.admin-coach.update-training-schedule', compact('trainingSession'));
+    }
+
+    function deleteTrainingSession($id)
+    {
+        TrainingSession::where('id', $id)->first()->delete();
+        return redirect('training-schedule');
+    }
+
 
     function putUpdateTrainingSession(Request $request, $id)
     {

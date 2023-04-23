@@ -147,7 +147,8 @@
 
         </form>
 
-        <form action="" method="post" class="col-md-8">
+        <form action="{{ url('/cancel-training-session/' . $trainingSession->id) }}" method="post" class="col-md-8">
+            @csrf
             <input type="submit" value="CANCEL SESSION" class="form-control"
                 style="width: 100%; background-color: #bf3c3c; color: white;">
         </form>

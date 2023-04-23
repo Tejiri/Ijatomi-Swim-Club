@@ -224,31 +224,38 @@
                         </li>
                     @endif
 
-                    {{-- @if (Auth::user()->role == 'admin') --}}
-                    <li>
-                        {{-- class="active-menu"  --}}
-                        <a href="{{ url('manage-children-account') }}"> <i
-                                class="fa-solid fa-hands-holding-child fa-2x"></i> Parental Control</a>
-                    </li>
-                    {{-- @endif --}}
+                    @if (Auth::user()->role == 'parent')
+                        {{-- @if (Auth::user()->role == 'admin') --}}
+                        <li>
+                            {{-- class="active-menu"  --}}
+                            <a href="{{ url('manage-children-account') }}"> <i
+                                    class="fa-solid fa-hands-holding-child fa-2x"></i> Parental Control</a>
+                        </li>
+                    @endif
 
-                    <li>
-                        {{-- class="active-menu"  --}}
-                        <a href="{{ url('manage-coaches') }}"> <i class="fa-solid fa-person-chalkboard fa-2x"></i>
-                            Manage Coaches</a>
-                    </li>
+                    @if (Auth::user()->role == 'admin')
+                        <li>
+                            {{-- class="active-menu"  --}}
+                            <a href="{{ url('manage-coaches') }}"> <i class="fa-solid fa-person-chalkboard fa-2x"></i>
+                                Manage Coaches</a>
+                        </li>
+                    @endif
 
-                    <li>
-                        {{-- class="active-menu"  --}}
-                        <a href="{{ url('validate-training-results') }}">
-                            <i class="fa-solid fa-check-double fa-2x"></i>
-                            Validate Training Results</a>
-                    </li>
+                    @if (Auth::user()->role == 'admin')
+                        <li>
+                            {{-- class="active-menu"  --}}
+                            <a href="{{ url('validate-training-results') }}">
+                                <i class="fa-solid fa-check-double fa-2x"></i>
+                                Validate Training Results</a>
+                        </li>
+                    @endif
+
                     <li>
                         {{-- class="active-menu"  --}}
                         <a href="{{ url('training-results') }}">
-                            <i class="fa-solid fa-check-double fa-2x"></i>
-                           ALl results</a>
+                            <i class="fa-solid fa-square-poll-vertical fa-2x"></i>
+                            {{-- <i class="fa-solid fa-check-double fa-2x"></i> --}}
+                            All training results</a>
                     </li>
                     {{-- <li>
                         <a href="ui.html"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>

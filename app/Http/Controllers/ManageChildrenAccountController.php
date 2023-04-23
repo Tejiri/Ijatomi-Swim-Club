@@ -10,16 +10,17 @@ use Illuminate\Http\Request;
 
 class ManageChildrenAccountController extends Controller
 {
-     //
+    //
 
-  
 
-    function getRegisterChildrenPage() {
+
+    function getRegisterChildrenPage()
+    {
         $genders = Gender::all();
         $registeredChildren = User::where('parent', auth()->user()->id)->get();
         return view('pages.parent.manage-children-account', compact("genders", "registeredChildren"));
     }
- 
+
     function postRegisterChild(Request $request)
     {
         $request->merge([
@@ -33,15 +34,15 @@ class ManageChildrenAccountController extends Controller
         $this->validate(
             $request,
             [
-                "username" => "required",
-                "lastname" => "required",
-                "address" => "required",
-                "phone_number" => "required",
-                "password" => "required",
-                "firstname" => "required",
-                "date_of_birth" => "required",
-                "postcode" => "required",
-                "email" => "required",
+                'username' => 'required|unique:users,username|max:10',
+                'firstname' => 'required|regex:/^[a-zA-Z]+$/u|max:30',
+                'lastname' => 'required|regex:/^[a-zA-Z]+$/u|max:30',
+                'date_of_birth' => 'required',
+                'address' => 'required',
+                'postcode' => 'required',
+                'phone_number' => 'required|numeric|digits_between:10,12',
+                'email' => 'required|email:rfc,dns|unique:users,email',
+                'password' => 'required|confirmed|min:4',
                 "gender" => "required"
             ]
         );

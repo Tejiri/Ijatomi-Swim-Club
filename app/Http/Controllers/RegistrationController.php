@@ -22,6 +22,7 @@ class RegistrationController extends Controller
         return view('pages.register', compact('genders'));
     }
 
+   
     // function register(Request $request)
     // {
 

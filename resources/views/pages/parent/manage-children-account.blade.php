@@ -76,6 +76,13 @@
                                         {{-- <p class="help-block">Help text here.</p> --}}
                                     </div>
 
+                                    <div class="form-group">
+                                        <label>Confirm Password</label>
+                                        <input name="password_confirmation" type="password"
+                                            placeholder="Please Enter Password" class="form-control" />
+                                        {{-- <p class="help-block">Help text here.</p> --}}
+                                    </div>
+
                                     {{-- <div class="form-group">
                                         <label>Role</label>
                                         <select name="role" class="form-control"> --}}
@@ -177,7 +184,7 @@
                                                     <td>{{ $child->phone_number }}</td>
                                                     <td>{{ $child->date_of_birth }}</td>
                                                     <td>
-                                                        <a href="{{ url('update-child-account/' . $child->id) }}">
+                                                        <a href="{{ url('update-user-account/' . $child->id) }}">
                                                             <input type="submit" value="UPDATE" class="form-control"
                                                                 style="width: 100%; background-color: #bf3c3c; color: white;">
                                                         </a>
