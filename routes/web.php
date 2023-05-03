@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CoachManagementController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditSquadController;
+use App\Http\Controllers\GalaEventController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ManageChildrenAccountController;
 use App\Http\Controllers\PerformanceHistoryController;
@@ -32,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/populate', [PopulateDatabase::class, "populate"]);
+// Route::get('/populate', [PopulateDatabase::class, "populate"]);
 
 Route::middleware(['auth'])->group(function () {
 
@@ -53,10 +55,11 @@ Route::middleware(['auth'])->group(function () {
 
         Route::post('decline-training-result/{id}', [TrainingResultController::class, 'deleteTrainingResultWithId']);
 
-        Route::get('manage-coaches', function () {
-            $coaches = User::where('role', 'coach')->get();
-            return view('pages.admin.manage-coaches', compact('coaches'));
-        });
+        Route::get('manage-coaches', [CoachManagementController::class, 'getCoachManagementPage']);
+
+        Route::get('gala-event-management', [GalaEventController::class, 'getGalaEventManagementPage']);
+        Route::post('create-event', [GalaEventController::class, 'createEvent']);
+        Route::post('add-gala-result', [GalaEventController::class, 'postAddGalaResult']);
     });
 
     Route::middleware(['checkIfAdminOrCoach'])->group(function () {
@@ -75,15 +78,21 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get("update-user-account/{id}", [UpdateProfileController::class, 'getUpdateUserAccount']);
 
+    Route::get('gala-results', [GalaEventController::class, 'getAllGalaResultsPage']);
+    Route::post('gala-results', [GalaEventController::class, 'postAllGalaResults']);
+    Route::get('gala-results/{galaId}', [GalaEventController::class, 'getAllGalaResultsPageById']);
+
     Route::get('/', [DashboardController::class, "getDashboard"]);
     Route::get('/squads', [SquadController::class, "getSquads"]);
     Route::get('/performance-history/{userId}', [PerformanceHistoryController::class, "getPerformanceHistory"]);
     Route::get('update-profile', [UpdateProfileController::class, 'getUpdateProfile']);
     Route::get('/training-schedule', [TrainingSessionController::class, 'getTrainingSchedule']);
     Route::get('/update-training-session/{id}', [TrainingSessionController::class, 'getUpdateTrainingSession']);
-    
+
     Route::post('/cancel-training-session/{id}', [TrainingSessionController::class, 'deleteTrainingSession']);
     Route::get('training-results', [TrainingResultController::class, 'getAllTrainingResults']);
+    Route::get('training-results/{id}', [TrainingResultController::class, 'getAllTrainingResultsById']);
+    Route::post('training-results', [TrainingResultController::class, 'postAllTrainingResults']);
 
     Route::post('/update-training-session/{id}', [TrainingSessionController::class, 'putUpdateTrainingSession']);
     Route::post("update-user-account/{id}", [UpdateProfileController::class, 'postUpdateUserAccount']);

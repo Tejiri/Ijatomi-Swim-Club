@@ -3,32 +3,38 @@
 @section('content')
 
     <div class="row">
-        <form action="{{ url('/training-results') }}" method="post" class="col-md-6">
+        <form action="{{ url('/gala-results') }}" method="post" class="col-md-6">
             @csrf
 
             <div>
                 <div class="form-group">
-                    <label>Select Squad</label>
-                    @if (count($squads))
-                        <select name="squad" class="form-control">
-                            @foreach ($squads as $squad)
-                                <option value={{ $squad->id }}>
-                                    {{ $squad->name }}
+                    <label>Select Gala Event</label>
+                    @if (count($events))
+                        <select name="event" class="form-control">
+                            @foreach ($events as $event)
+                                <option value={{ $event->id }}>
+                                    {{ $event->name }}
                                 </option>
                             @endforeach
+
+
                         </select>
                     @else
-                        <div style="color: red; font-weight: bolder;font-size: 16px">No Events to view
+                        <div style="color: red; font-weight: bolder;font-size: 16px">No Gala Results available
                         </div>
                     @endif
                 </div>
 
-                <div class="form-group">
-                    {{-- <label>End time</label> --}}
-                    <input type="submit" value="Submit" class="form-control"
-                        style="background-color: #71b7e6; font-weight: bold" />
-                    {{-- <p class="help-block">Help text here.</p> --}}
-                </div>
+                @if (count($events))
+                    <div class="form-group">
+                        {{-- <label>End time</label> --}}
+                        <input type="submit" value="Submit" class="form-control"
+                            style="background-color: #71b7e6; font-weight: bold" />
+                        {{-- <p class="help-block">Help text here.</p> --}}
+                    </div>
+                @else
+                @endif
+
             </div>
 
 
@@ -36,13 +42,13 @@
         </form>
     </div>
 
-    @if ($selectedSquad == null)
+    @if ($selectedEvent == null)
     @else
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                    <strong>  {{ " Displaying all results for " . $selectedSquad->name}}</strong>
+                        <strong> All Results for {{ $selectedEvent->name }}</strong>
                     </div>
                     <div class="panel-body">
                         <ul class="nav nav-tabs">
@@ -341,6 +347,7 @@
 
         </div>
     @endif
+
 
 
 @endsection

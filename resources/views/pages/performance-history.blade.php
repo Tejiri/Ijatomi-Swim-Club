@@ -7,7 +7,7 @@
         <div class="col-md-12 col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Basic Tabs
+                  <strong>{{"Performance history for " . $user->first_name . " " . $user->last_name . " - ". $user->squad->name}}</strong>
                 </div>
                 <div class="panel-body">
                     <ul class="nav nav-tabs">

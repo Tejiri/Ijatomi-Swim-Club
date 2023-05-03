@@ -257,6 +257,26 @@
                             {{-- <i class="fa-solid fa-check-double fa-2x"></i> --}}
                             All training results</a>
                     </li>
+
+                    @if (Auth::user()->role == 'admin')
+                        <li>
+                            {{-- class="active-menu"  --}}
+                            <a href="{{ url('gala-event-management') }}">
+                                <i class="fa-solid fa-star fa-2x"></i>
+                                Gala Event Management</a>
+                        </li>
+                    @endif
+
+
+                    <li>
+                        {{-- class="active-menu"  --}}
+                        <a href="{{ url('gala-results') }}">
+                            <i class="fa-solid fa-square-poll-vertical fa-2x"></i>
+                            All Gala Results</a>
+                    </li>
+
+
+
                     {{-- <li>
                         <a href="ui.html"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>
                     </li>
@@ -747,20 +767,20 @@
     <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-    <script src="{{ url('js/jquery-1.10.2.js') }}"></script>
+    <script src="{{ asset('js/jquery-1.10.2.js') }}"></script>
     <!-- BOOTSTRAP SCRIPTS -->
-    <script src="{{ url('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <!-- METISMENU SCRIPTS -->
-    <script src="{{ url('js/jquery.metisMenu.js') }}"></script>
+    <script src="{{ asset('js/jquery.metisMenu.js') }}"></script>
     <!-- MORRIS CHART SCRIPTS -->
 
 
-    <script src="{{ url('js/morris/raphael-2.1.0.min.js') }}"></script>
-    <script src="{{ url('js/morris/morris.js') }}"></script>
+    <script src="{{ asset('js/morris/raphael-2.1.0.min.js') }}"></script>
+    <script src="{{ asset('js/morris/morris.js') }}"></script>
     <!-- CUSTOM SCRIPTS -->
 
-    <script src="{{ url('js/dataTables/jquery.dataTables.js') }}"></script>
-    <script src="{{ url('js/dataTables/dataTables.bootstrap.js') }}"></script>
+    <script src="{{ asset('js/dataTables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('js/dataTables/dataTables.bootstrap.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#para').dataTable();
@@ -775,7 +795,7 @@
             $('#performance-history-1500m').dataTable();
         });
     </script>
-    <script src="js/custom.js"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
 
 
 

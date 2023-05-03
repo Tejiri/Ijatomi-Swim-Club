@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row" style="margin-bottom: 10px">
-        <h3 class="col-md-12">Upload Swimmer Performance</h3>
+        <h3 class="col-md-12">Upload Swimmer Training Result</h3>
     </div>
 
     {{-- <div class="row">

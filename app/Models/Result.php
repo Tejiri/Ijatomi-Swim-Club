@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class TrainingResult extends Model
+class Result extends Model
 {
     use HasFactory;
 
@@ -17,11 +17,19 @@ class TrainingResult extends Model
         'distance',
         'intensity',
         'stroke_type',
-        'validated'
+        'validated',
+        'result_type',
+        'gala_id',
+        'squad_id'
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function squad(): BelongsTo
+    {
+        return $this->belongsTo(Squad::class);
     }
 }

@@ -26,6 +26,11 @@ class Squad extends Model
         return $this->hasMany(User::class, 'squad_id');
     }
 
+    function results()
+    {
+        return $this->hasMany(Result::class, 'squad_id');
+    }
+
     function trainingSessions()
     {
         return $this->hasMany(TrainingSession::class, 'squad_id');

@@ -54,14 +54,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    function gender()
+    function gender(): BelongsTo
     {
-        return $this->hasOne(Gender::class);
+        return $this->belongsTo(Gender::class);
     }
 
-    function trainingResults()
+    function results()
     {
-        return $this->hasMany(TrainingResult::class, "user_id");
+        return $this->hasMany(Result::class, "user_id");
     }
 
     public function squad(): BelongsTo

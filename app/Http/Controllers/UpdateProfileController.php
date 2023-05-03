@@ -20,7 +20,7 @@ class UpdateProfileController extends Controller
         $intervalYear = $interval->y;
 
         // return $intervalYear;
-        if ($intervalYear < 18) {
+        if ($intervalYear < 18 && $user->role == 'swimmer') {
             abort(403, 'UNAUTHORIZED, ONLY PARENTS CAN UPDATE');
         }
         return view('pages.update-profile', compact('user'));

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('training_results', function (Blueprint $table) {
+        Schema::create('results', function (Blueprint $table) {
             $table->id();
             $table->string('remark');
             $table->unsignedInteger('time_in_seconds');
@@ -19,8 +19,12 @@ return new class extends Migration
             $table->date("training_date");
             $table->string("intensity");
             $table->string("distance");
+            $table->string("result_type");
             $table->string("stroke_type");
             $table->foreignId("user_id");
+            $table->foreignId("squad_id")->nullable();
+            $table->foreignId("gala_id")->nullable();
+            
             $table->timestamps();
         });
 
@@ -40,6 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('training_results');
+        Schema::dropIfExists('results');
     }
 };
