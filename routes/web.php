@@ -45,6 +45,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('create-training-session', [TrainingSessionController::class, 'getTrainingSession']);
         Route::post('create-training-session', [TrainingSessionController::class, 'postCreateTrainingSession']);
+        Route::post('/update-training-session/{id}', [TrainingSessionController::class, 'putUpdateTrainingSession']);
+        Route::post('/cancel-training-session/{id}', [TrainingSessionController::class, 'deleteTrainingSession']);
+        Route::get('/update-training-session/{id}', [TrainingSessionController::class, 'getUpdateTrainingSession']);
 
         Route::post("update-coach-squad/{id}", [UpdateProfileController::class, 'postUpdateCoachSquad']);
 
@@ -77,6 +80,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get("update-user-account/{id}", [UpdateProfileController::class, 'getUpdateUserAccount']);
+    Route::post("update-user-account/{id}", [UpdateProfileController::class, 'postUpdateUserAccount']);
 
     Route::get('gala-results', [GalaEventController::class, 'getAllGalaResultsPage']);
     Route::post('gala-results', [GalaEventController::class, 'postAllGalaResults']);
@@ -87,15 +91,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/performance-history/{userId}', [PerformanceHistoryController::class, "getPerformanceHistory"]);
     Route::get('update-profile', [UpdateProfileController::class, 'getUpdateProfile']);
     Route::get('/training-schedule', [TrainingSessionController::class, 'getTrainingSchedule']);
-    Route::get('/update-training-session/{id}', [TrainingSessionController::class, 'getUpdateTrainingSession']);
 
-    Route::post('/cancel-training-session/{id}', [TrainingSessionController::class, 'deleteTrainingSession']);
     Route::get('training-results', [TrainingResultController::class, 'getAllTrainingResults']);
     Route::get('training-results/{id}', [TrainingResultController::class, 'getAllTrainingResultsById']);
     Route::post('training-results', [TrainingResultController::class, 'postAllTrainingResults']);
-
-    Route::post('/update-training-session/{id}', [TrainingSessionController::class, 'putUpdateTrainingSession']);
-    Route::post("update-user-account/{id}", [UpdateProfileController::class, 'postUpdateUserAccount']);
 });
 
 Route::get('/login', [LoginController::class, 'show'])->name('login');

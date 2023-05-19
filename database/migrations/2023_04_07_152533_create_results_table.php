@@ -24,7 +24,6 @@ return new class extends Migration
             $table->foreignId("user_id");
             $table->foreignId("squad_id")->nullable();
             $table->foreignId("gala_id")->nullable();
-            
             $table->timestamps();
         });
 

@@ -17,121 +17,186 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->createParentAndChild();
         User::factory(50)->create();
-
         $this->generateGenders();
         $this->createSquads();
         $this->createAdmin();
         $this->createCoaches();
-
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 
     function generateGenders()
     {
-        Gender::create([
-            "name" => "Male",
-        ]);
+        $genders = Gender::all();
+        if (count($genders)) {
+        } else {
+            Gender::create([
+                "name" => "Male",
+            ]);
 
-        Gender::create([
-            "name" => "Female",
-        ]);
+            Gender::create([
+                "name" => "Female",
+            ]);
+        }
+    }
+
+    function createParentAndChild()
+    {
+        $parent = User::where('email', 'parent1@gmail.com')->get();
+        $child = User::where('email', 'child1@gmail.com')->get();
+        if (count($parent) || count($child)) {
+        } else {
+            User::create(
+                [
+                    "username" => fake()->userName(),
+                    "first_name" => fake()->firstName(),
+                    "last_name" => fake()->lastName(),
+                    "date_of_birth" => fake()->date(),
+                    'address' => fake()->address(),
+                    'postcode' => fake()->postcode(),
+                    'phone_number' => fake()->phoneNumber(),
+                    'email' => "parent1@gmail.com",
+                    'password' => Hash::make("aaaaa"),
+                    'role' => "parent",
+                    'gender_id' => 1,
+                    'squad_id' => null,
+                ]
+            );
+
+            User::create(
+                [
+                    "username" => fake()->userName(),
+                    "first_name" => fake()->firstName(),
+                    "last_name" => fake()->lastName(),
+                    "date_of_birth" => fake()->date(),
+                    'address' => fake()->address(),
+                    'postcode' => fake()->postcode(),
+                    'phone_number' => fake()->phoneNumber(),
+                    'email' => "child1@gmail.com",
+                    'password' => Hash::make("aaaaa"),
+                    'role' => "swimmer",
+                    'gender_id' => 1,
+                    'squad_id' => rand(1, 3),
+                    "parent" => 1
+                ]
+            );
+        }
     }
 
     function  createSquads()
     {
 
-        Squad::create([
-            'minimum_age' => 6,
-            'maximum_age' => 11,
-            'name' => 'Development Squad',
-            'description' => 'A development squad swim club membership is a type of membership for children who are just starting to learn how to swim and want to develop their skills in a supportive and nurturing environment. Typically, development squad swim clubs are designed for children aged between 6 and 12 years old who are able to swim at least 25 meters without assistance.'
-        ]);
+        $squads = Squad::all();
+        if (count($squads)) {
+        } else {
+            Squad::create([
+                'minimum_age' => 6,
+                'maximum_age' => 11,
+                'name' => 'Development Squad',
+                'description' => 'A development squad swim club membership is a type of membership for children who are just starting to learn how to swim and want to develop their skills in a supportive and nurturing environment. Typically, development squad swim clubs are designed for children aged between 6 and 12 years old who are able to swim at least 25 meters without assistance.'
+            ]);
 
-        Squad::create([
-            'minimum_age' => 12,
-            'maximum_age' => 17,
-            'name' => 'Intermediate Squad',
-            'description' => 'An intermediate squad swim club membership is a type of membership for children who have already developed a certain level of swimming proficiency and are looking to take their skills to the next level. Typically, intermediate squad swim clubs are designed for children aged between 10 and 14 years old who have already completed the development squad program or have demonstrated a high level of swimming proficiency.'
-        ]);
+            Squad::create([
+                'minimum_age' => 12,
+                'maximum_age' => 17,
+                'name' => 'Intermediate Squad',
+                'description' => 'An intermediate squad swim club membership is a type of membership for children who have already developed a certain level of swimming proficiency and are looking to take their skills to the next level. Typically, intermediate squad swim clubs are designed for children aged between 10 and 14 years old who have already completed the development squad program or have demonstrated a high level of swimming proficiency.'
+            ]);
 
-        Squad::create([
-            'minimum_age' => 18,
-            'maximum_age' => 28,
-            'name' => 'Performance Squad',
-            'description' => 'A performance squad swim club membership is a type of membership for swimmers who have achieved a high level of swimming proficiency and are looking to compete at the highest levels of the sport. Typically, performance squad swim clubs are designed for swimmers aged 14 years old and above who have already completed the intermediate squad program or have demonstrated a high level of swimming proficiency at regional or national competitions.'
-        ]);
-
-        // Squad::create([
-        //     'minimum_age' => 6,
-        //     'maximum_age' => 25,
-        //     'name' => 'Para Swimming Squad',
-        //     'description' => 'A Para swimming squad swim club membership is a type of membership for swimmers with a disability who are looking to develop their skills and compete in the sport of swimming. Para swimming squad swim clubs are designed to cater to swimmers with a wide range of disabilities, including physical, sensory, and intellectual impairments.'
-        // ]);
+            Squad::create([
+                'minimum_age' => 18,
+                'maximum_age' => 28,
+                'name' => 'Performance Squad',
+                'description' => 'A performance squad swim club membership is a type of membership for swimmers who have achieved a high level of swimming proficiency and are looking to compete at the highest levels of the sport. Typically, performance squad swim clubs are designed for swimmers aged 14 years old and above who have already completed the intermediate squad program or have demonstrated a high level of swimming proficiency at regional or national competitions.'
+            ]);
+        }
     }
 
     function  createAdmin()
     {
-        User::create(
-            [
-                "username" => "Tejiri",
-                "first_name" => "Tejiri",
-                "last_name" => "Ijatomi",
-                "date_of_birth" => fake()->date(),
-                'address' => fake()->address(),
-                'postcode' => fake()->postcode(),
-                'phone_number' => fake()->phoneNumber(),
-                'email' => "steveijatomi@gmail.com",
-                'password' => Hash::make("aaaaa"),
-                'role' => "admin",
-                'gender_id' => 1,
-                'squad_id' => null,
+        $admin = User::where('email', 'admin@gmail.com')->get();
+        if (count($admin)) {
+        } else {
+            User::create(
+                [
+                    "username" => fake()->userName(),
+                    "first_name" => fake()->firstName(),
+                    "last_name" => fake()->lastName(),
+                    "date_of_birth" => fake()->date(),
+                    'address' => fake()->address(),
+                    'postcode' => fake()->postcode(),
+                    'phone_number' => fake()->phoneNumber(),
+                    'email' => "admin@gmail.com",
+                    'password' => Hash::make("aaaaa"),
+                    'role' => "admin",
+                    'gender_id' => 1,
+                    'squad_id' => null,
 
-            ]
-        );
+                ]
+            );
+        }
     }
 
     function  createCoaches()
     {
-        User::create(
-            [
-                "username" => "Tejiri2",
-                "first_name" => "Tejiri2",
-                "last_name" => "Ijatomi2",
-                "date_of_birth" => fake()->date(),
-                'address' => fake()->address(),
-                'postcode' => fake()->postcode(),
-                'phone_number' => fake()->phoneNumber(),
-                'email' => "steveijatomi2@gmail.com",
-                'password' => Hash::make("aaaaa"),
-                'role' => "coach",
-                'gender_id' => 1,
-                'squad_id' => 1,
+        $coach1 = User::where('email', 'coach1@gmail.com')->get();
+        $coach2 = User::where('email', 'coach2@gmail.com')->get();
+        $coach3 = User::where('email', 'coach3@gmail.com')->get();
+        if (count($coach1) || count($coach2) || count($coach3)) {
+        } else {
+            User::create(
+                [
+                    "username" => fake()->userName(),
+                    "first_name" => fake()->firstName(),
+                    "last_name" => fake()->lastName(),
+                    "date_of_birth" => fake()->date(),
+                    'address' => fake()->address(),
+                    'postcode' => fake()->postcode(),
+                    'phone_number' => fake()->phoneNumber(),
+                    'email' => "coach1@gmail.com",
+                    'password' => Hash::make("aaaaa"),
+                    'role' => "coach",
+                    'gender_id' => 1,
+                    'squad_id' => 1,
 
-            ]
-        );
+                ]
+            );
 
-        User::create(
-            [
-                "username" => "Tejiri3",
-                "first_name" => "Tejiri3",
-                "last_name" => "Ijatomi3",
-                "date_of_birth" => fake()->date(),
-                'address' => fake()->address(),
-                'postcode' => fake()->postcode(),
-                'phone_number' => fake()->phoneNumber(),
-                'email' => "steveijatomi3@gmail.com",
-                'password' => Hash::make("aaaaa"),
-                'role' => "coach",
-                'gender_id' => 1,
-                'squad_id' => 2,
+            User::create(
+                [
+                    "username" => fake()->userName(),
+                    "first_name" => fake()->firstName(),
+                    "last_name" => fake()->lastName(),
+                    "date_of_birth" => fake()->date(),
+                    'address' => fake()->address(),
+                    'postcode' => fake()->postcode(),
+                    'phone_number' => fake()->phoneNumber(),
+                    'email' => "coach2@gmail.com",
+                    'password' => Hash::make("aaaaa"),
+                    'role' => "coach",
+                    'gender_id' => 1,
+                    'squad_id' => 2,
 
-            ]
-        );
+                ]
+            );
+
+            User::create(
+                [
+                    "username" => fake()->userName(),
+                    "first_name" => fake()->firstName(),
+                    "last_name" => fake()->lastName(),
+                    "date_of_birth" => fake()->date(),
+                    'address' => fake()->address(),
+                    'postcode' => fake()->postcode(),
+                    'phone_number' => fake()->phoneNumber(),
+                    'email' => "coach3@gmail.com",
+                    'password' => Hash::make("aaaaa"),
+                    'role' => "coach",
+                    'gender_id' => 1,
+                    'squad_id' => 3,
+
+                ]
+            );
+        }
     }
 }

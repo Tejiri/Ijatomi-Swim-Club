@@ -7,6 +7,7 @@ use App\Models\Squad;
 use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ManageChildrenAccountController extends Controller
 {
@@ -91,7 +92,7 @@ class ManageChildrenAccountController extends Controller
             $child->last_name = $request->lastname;
             $child->address = $request->address;
             $child->phone_number = $request->phone_number;
-            $child->password = $request->password;
+            $child->password = Hash::make($request->password);
             $child->role = $request->role;
             $child->date_of_birth = $request->date_of_birth;
             $child->postcode = $request->postcode;

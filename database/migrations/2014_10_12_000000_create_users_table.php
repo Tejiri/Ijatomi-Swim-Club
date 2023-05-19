@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('role');
             $table->foreignId('gender_id');
+            // $table->foreign('gender_id')->references('id')->on('gender')
             $table->foreignId('squad_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
